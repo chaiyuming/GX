@@ -1,0 +1,60 @@
+{% extends 'cms/base/base.html' %}
+{% block title %}
+    {% if sub_category %}
+        编辑分类信息
+    {% else %}
+        添加分类信息
+    {% endif %}
+
+{% endblock %}
+
+
+{% block content-header %}
+    {% if sub_category %}
+        编辑分类信息
+    {% else %}
+        添加分类信息
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <form action="" method="post">
+{#                    {% csrf_token %}#}
+                    <div class="form-group">
+                        <label for="first_category">一级分类:</label>
+                        <select name="first_category" id="first_category" class="form-control">
+                            <option value="0">请输入一级分类</option>
+                            {% for category in categories %}
+                                {% if sub_category and sub_category.parent_id == category.id %}
+                                    <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                                {% else %}
+                                    <option value="{{ category.id }}">{{ category.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="second_category">二级分类</label>
+                        {% if sub_category %}
+                            <input type="text" class="form-control" placeholder="请输入二级分类" name="second_category" value="{{ sub_category.name }}" id="sub_category">
+                        {% else %}
+                            <input type="text" class="form-control" placeholder="请输入二级分类" name="second_category" id="sub_category" >
+                        {% endif %}
+
+                    </div>
+                    <div class="footer">
+                        <button class="btn btn-primary pull-right submit-btn"  data-type-id="{{ sub_category.pk }}">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+      <script src="{% static 'js/cms/product/add_sub_category.js' %}"></script>
+{% endblock %}

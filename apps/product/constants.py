@@ -1,0 +1,2 @@
+#定义首页每页有多少个产品
+ONE_PAGE__PRODUCTS_COUNT=16

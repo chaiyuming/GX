@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}
+
+    {% endblock %}</title>    <!--标题-->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_660167_4fgahnrq6x2.css">    <!--icon-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_684044_un7umbuwwfp.css">
+    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base/connect_us.css' %}">
+  <link rel="stylesheet" href="{% static 'css/product/theme.css' %}">
+  <link rel="stylesheet" href="{% static 'css/product/web_index.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+    {% block link %}
+    {% endblock %}
+</head>
+<body>
+<div class="container-box">
+    <header class="header">
+        <div class="header_top clearfix">
+            <div class="main-container clearfix">
+            <div class="logo_box clearfix">
+                <div class="fic">
+                    <ul class="manage_admin">
+                        <li><a href="javascript:window.external.addFavorite('www.gongxietech.com','杭州共携科技有限公司')">收藏本站</a></li>
+                        <li>|<a href="{% url 'users:login' %}" target="_blank">网站管理</a></li>
+                        <li>|<a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="company_logo">
+                    <img src="/static/images/logo_4.png" alt="company_logo">
+                </div>
+                <div class="company_telephone">
+                    <img src="/static/images/telephone_1.png" alt="company_logo">
+                </div>
+            </div>
+        </div>
+        </div>
+        {#    导航栏#}
+        <div class="nav">
+            <div class="main-container">
+                <ul class="nav-menu">
+                    <li class='first_menu'>
+                        <a href="/" class="nav_title">网站首页</a>
+                    </li>
+                    <li class="first_menu">
+                        <a class="nav_title" href="{% url 'culture:introduce' %}">关于我们</a>
+                        <ul class="nav_second_menu">
+                            <li class="nav_sec_det"><a href="{% url 'culture:introduce' %}">公司介绍</a></li>
+                            <li class="nav_sec_det"><a href="{% url 'culture:culture' %}">公司文化</a></li>
+                        </ul>
+                    </li>
+                    <li class="first_menu">
+                        <a class="nav_title" href="{% url 'product:product_center' %}">产品中心</a>
+                        {% block category %}
+
+                        {% endblock %}
+                    </li>
+                    <li class="first_menu">
+                        <a class="nav_title" href="{% url 'news:news' %}">新闻资讯</a>
+                        <ul class="nav_second_menu">
+                            <li class="nav_sec_det"><a href="{%  url 'news:news' %}">新闻中心</a></li>
+                        </ul>
+                    </li>
+                    <li class="first_menu">
+                        <a class="nav_title" href="{% url 'product:contact' %}">联系我们</a>
+                        <ul class="nav_second_menu">
+                            <li class="nav_sec_det"><a href="{% url 'product:contact' %}">联系我们</a></li>
+                        </ul>
+                    </li>
+                    <li class="first_menu">
+                        <a class="nav_title" href="{% url 'word:client_words' %}">客户留言</a>
+                        <ul class="nav_second_menu">
+                            <li class="nav_sec_det"><a href="{% url 'word:client_words' %}">客户留言</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    {#轮播图#}
+    <div class="carousel-Box">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="/static/images/1920海报4.jpg" class="d-block w-100" alt="..." style="width: 100%">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+    </div>
+
+{#内容部分#}
+    <div class="center">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <footer class="footer">
+        <div class="footer_1">
+            <div class="main-container">
+                <div class="footer-logo">
+                    <img src="/static/images/company_logo_1.jpg" alt="">
+                </div>
+                <div class="footer_info">
+                    <div class="top_info">
+                        <ul class="footer_links">
+                            <li><a href="/">网站首页</a></li>
+                            <li>|<a href="#">关于我们</a></li>
+                            <li>|<a href="#">产品中心</a></li>
+                            <li>|<a href="#">新闻资讯</a></li>
+                            <li>|<a href="#">联系我们</a></li>
+                        </ul>
+                    </div>
+                    <div class="bottom_info">
+                        <div class="company_info">
+                            <span class="adress"> 地址：浙江省杭州市萧山区太古广场1幢816室</span>
+                            <span class="phonenum">联系方式：183-6887-9756（24小时咨询热线)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_2">
+             <div class="main-container">
+                <span class="in_pc">Copyright &copy;2018-2024 杭州共携科技有限公司&nbsp;&nbsp;&nbsp;版权所有 浙ICP备19005288号</span>
+            </div>
+         </div>
+    </footer>
+</div>
+
+    <script src="{% static 'sweetalert/sweetalert.min.js' %}"></script>
+    <script src="{% static 'sweetalert/fsweetalert.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/base/base.js' %}"></script>
+    <script src="{% static 'js/base/message.js' %}"></script>
+    {#js/front_base.js必须放在jQqury文件后面 #}
+{#    <script src="{% static 'js/front_base.js' %}"></script>#}
+    {% block script %}
+
+    {% endblock %}
+</body>
+</html>

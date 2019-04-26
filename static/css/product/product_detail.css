@@ -1,0 +1,115 @@
+.main .content{
+    width: 776px;
+    height: 450px;
+}
+.main .content .ProInfo {
+    width: 776px;
+    height: 280px;
+
+}
+.main .content .ProInfo .product-image{
+    height: 273px;
+    width: 273px;
+    border: 1px solid #e6e6e6;
+    float: left;
+}
+.product-image:hover{
+    border: 1px solid #ff5500;
+}
+.product-image img{
+    height: 270px;
+    width: 270px;
+    /*float: left;*/
+}
+.main .content .column{
+    float: left;
+    margin-left: 20px;
+    height: 270px;
+}
+.main .content .column.title{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #CCCCCC;
+}
+.main .content .column .title p {
+    font-size: 18px;
+    height: 40px;
+    font-family: 微软雅黑;
+}
+.main .content .column .infos{
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+}
+.main .content .column ul li{
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    font-size: 12px;
+    font-family: 微软雅黑;
+    /*margin-top: 5px;*/
+}
+.main .content .column ul li span{
+    width: 100px;
+    height: 20px;
+    border: 1px solid #ff5500;
+    padding: 3px;
+}
+.main .content .column ul li p{
+    font-size: 12px;
+    color: #666666;
+}
+.main .content .ProInfo .product-introduce{
+    height: 80px;
+    font-size: 12px;
+}
+.main .content .product-introduce .info_title{
+    font-size: 14px;
+    height: 35px;
+    font-family: "Microsoft Yahei","黑体";
+    line-height: 35px;
+    border-bottom: 2px solid #ff5500;
+    margin: 10px 0px;
+    padding-left: 10px;
+    background: url('/static/images/jiantou.gif') no-repeat 0px 8px;
+    color: #FFFFFF;
+}
+.main .content .product-introduce .info_content{
+    width: 100%;
+    margin: 0 auto;
+}
+.main .content .product-introduce .info_content .albumblock{
+    padding: 10px 10px 0px 10px;
+    float: left;
+}
+.main .content .product-introduce .info_content .albumblock .inner{
+    width:143px;
+    height:143px;
+    border: 1px solid #c6c6c6;
+    position: relative;
+    overflow: hidden;
+}
+.main .content .product-introduce .info_content .albumblock .inner:hover{
+    border: 1px solid #a80207;
+}
+.main .content .product-introduce .info_content .albumblock .inner img {
+    border: 2px solid #fff;
+    display: block;
+    width: 139px;
+    height: 139px;
+}
+.main .content .product-introduce .info_content .albumblock .inner .course-bottom-group {
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    width: 143px;
+    background-color: #337ab7;
+    position: relative;
+    bottom: 23px;
+    left: 0;
+    color: #FFFFFF;
+    opacity: 0.7;
+    text-align: center;
+    cursor: pointer;
+    margin: auto;
+}

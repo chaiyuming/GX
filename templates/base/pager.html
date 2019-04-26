@@ -1,0 +1,99 @@
+{#                            导入分页代码#}
+{#<nav aria-label="Page navigation example" style="margin-top: -20px">#}
+{#      <ul class="pagination">#}
+{#                         如果有上一页#}
+{#          {% if pag_objects.has_previous%}#}
+{#                <li class="page-item">#}
+{#                                     ?表示拼接，pag_objects.previous_page_number上一页的值#}
+{#                  <a href="?p={{ pag_objects.previous_page_number }}&{{ url_parameter }}" aria-label="Previous">#}
+{#                    <span aria-hidden="true">&laquo;</span>#}
+{#                  </a>#}
+{#                </li>#}
+{#          {% else %}#}
+{#              <li class="page-item disabled">#}
+{#                    <span aria-hidden="true">&laquo;</span>#}
+{#              </li>#}
+{#          {% endif %}#}
+{#                            中间页#}
+{#                            当前页的左边#}
+{#          {% if left_has_more %}#}
+{#                <li class="page-item"><a href="?p=1&{{ url_parameter }}">1</a></li>#}
+{#                <li class="page-item"><span>...</span></li>#}
+{#          {% endif %}#}
+{#          {% for page in left_page %}#}
+{#                <li class="page-item">#}
+{#                    <a href="?p={{ page }}&{{ url_parameter }}">{{ page }}</a>#}
+{#                </li>#}
+{#          {% endfor %}#}
+{#                            当前页#}
+{#            <li class="active page-item"><a href="?p={{ pag_objects.number }}&{{ url_parameter }}"> {{ pag_objects.number }}</a></li>#}
+{#                             当前页右边#}
+{#            {% for page in right_page %}#}
+{#                <li class="page-item">#}
+{#                    <a href="?p={{ page }}&{{ url_parameter }}">{{ page }}</a>#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#            {% if right_has_more %}#}
+{#                <li class="page-item"><span>...</span></li>#}
+{#                <li class="page-item"><a href="?p={{ paginator.num_pages }}&{{ url_parameter }}">{{ paginator.num_pages }}</a></li>#}
+{#            {% endif %}#}
+{#                          如果有下一页#}
+{#          {% if pag_objects.has_next %}#}
+{#                <li class="page-item">#}
+{#                  <a href="?p={{ pag_objects.next_page_number }}&{{ url_parameter }}" aria-label="Next">#}
+{#                    <span aria-hidden="true">&raquo;</span>#}
+{#                  </a>#}
+{#                </li>#}
+{#          {% else %}#}
+{#              <li class="disabled page-item">#}
+{#                    <span aria-hidden="true">&raquo;</span>#}
+{#              </li>#}
+{#          {% endif %}#}
+{#      </ul>#}
+{#</nav>#}
+      <div class="form-group pull-right">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {#   如果有上一页       #}
+            {% if page_object.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_object.previous_page_number }}&{{ url_paramter }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span aria-hidden="true">&laquo;</span>
+              </li>
+            {% endif %}
+            {#当前页的左边#}
+            {% if left_has_more_page %}
+              <li class="page-item"><a class="page-link" href="?page=1&{{ url_paramter }}">1</a></li>
+              <li class="page-item"><span>...</span></li>
+            {% endif %}
+            {% for page in left_page %}
+              <li class="page-item"><a class="page-link" href="?page={{ page }}&{{ url_paramter }}">{{ page }}</a></li>
+            {% endfor %}
+            {#当前页#}
+            <li class="page-item active"><a class="page-link" href="?page={{ page_object.number }}&{{ url_paramter }}">{{ page_object.number }}</a></li>
+            {#当前页的右边#}
+            {% for page in right_page %}
+              <li class="page-item"><a class="page-link" href="?page={{ page }}&{{ url_paramter }}">{{ page }}</a></li>
+            {% endfor %}
+            {% if right_has_more_page %}
+              <li class="page-item"><span>...</span></li>
+              <li class="page-item"><a class="page-link" href="?page={{ paginator.num_pages }}&{{ url_paramter }}">{{ paginator.num_pages }}</a></li>
+            {% endif %}
+            {% if page_object.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_object.next_page_number }}&{{ url_paramter }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled"><span aria-hidden="true">&raquo;</span></li>
+            {% endif %}
+          </ul>
+        </nav>
+
+      </div>

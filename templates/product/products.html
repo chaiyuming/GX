@@ -1,0 +1,116 @@
+{% extends 'base/front_base.html' %}
+{% block title %}
+  产品信息-杭州共携科技有限公司
+{% endblock %}
+{% block link %}
+  {#    <script id="products_group" type="text/html">#}
+  {#        {% verbatim %}#}
+  {#            {{ each products product index }}#}
+  {#                    <div class="albumblock">#}
+  {#                        <div class="inner">#}
+  {#                            <a href="/product_detail/{{ product.id }}/" title="{{ product.describe }}" target="_blank">#}
+  {#                                <img class="thumbnail-group" src="{{ product.thumbnail }}" alt="">#}
+  {#                                <div class="course-bottom-group">#}
+  {#                                    {{ product.brand }}#}
+  {#                                </div>#}
+  {#                            </a>#}
+  {#                        </div>#}
+  {#                    </div>#}
+  {#            {{ /each }}#}
+  {#        {% endverbatim %}#}
+  {#    </script>#}
+{% endblock %}
+{% block category %}
+  {% include 'base/product_nav.html' %}
+{% endblock %}
+{#{% block banner %}#}
+{#    {% include 'base/banners.html' %}#}
+{#{% endblock %}#}
+{% block content %}
+  <div class="main-container product_category">
+    <div class="left_side">
+      <div class="product_left">
+        <div class="title"><span>产品中心</span></div>
+        <div class="left_nav">
+          <ul class="category_list">
+            {% for top_category in top_categories %}
+              <li>
+                <div class="t" data-tag-id="{{ top_category.id }}" data-tag-name="{{ top_category.name }}">
+                  <a href="{% url 'product:product_center' %}?top_tag_id={{ top_category.id }}">
+                    <i style="position:absolute; left:0; top:0; width:18px; height:40px;background:url(/media/ioc_l.png) no-repeat 0 center; cursor:pointer"></i>
+                    {{ top_category.name }}
+                  </a>
+                </div>
+                <div class="txt">
+                  {% with top_category.sub_category.all as sub_categories %}
+                    {% if sub_categories %}
+                      {% for sub_category in sub_categories %}
+                        <p data-sub_type_id="{{ sub_category.id }}"><a href="{% url 'product:product_center' %}?top_tag_id={{ top_category.id }}&sub_tag_id={{ sub_category.id }}">{{ sub_category.name }}（{{ sub_category.products.count }}）</a></p>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="left_side_connect">
+          {% include 'base/connnect_us.html' %}
+        </div>
+      </div>
+    </div>
+    <div class="product_display_box_1">
+      <div class="product_display_border">
+            <span class="product-recommend">
+                {% if top_tag_id == top_category.id %}
+                  {{ top_category.name }}
+                {% else %}
+                  产品展示
+                {% endif %}
+            </span>
+        <span class="product-right-box pull-right">
+                {% if top_tag_id == top_category.pk %}
+                  当前位置：<a href="/">首页&gt;</a>产品中心&gt;{{ first_type.name }}
+                {% else %}
+                  当前位置：<a href="/">首页&gt;</a>产品中心
+                {% endif %}
+            </span>
+      </div>
+      <div class="pro-list-show">
+        <ul class="course-list-group">
+          {% if products %}
+            {% for product in products %}
+              <div class="albumblock">
+                <div class="inner">
+                  <a href="{% url 'product:product_detail' product.id %}" title="{{ product.describe }}" target="_blank">
+{#                  <a href="#" title="{{ product.describe }}" target="_blank">#}
+                    <img class="thumbnail-group" src="{{ product.thumbnail }}" alt="">
+                    <div class="course-bottom-group">
+                      {{ product.brand }}
+                    </div>
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="no_info">
+              暂无信息
+            </div>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="product-list-footer form-inline">
+        <div class="page-left pull-left">
+          <span>第{{ pag_objects.number }}页/总共{{ paginator.num_pages }}页</span>
+        </div>
+        <div class="page-number pull-right">
+          {% include 'base/index_pager.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/product/theme.js' %}"></script>
+{% endblock %}

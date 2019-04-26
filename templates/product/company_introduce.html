@@ -1,0 +1,55 @@
+{% extends 'base/front_base.html' %}
+{% block title %}
+公司介绍-杭州共携科技有限公司
+{% endblock %}
+{#{% block link %}#}
+{##}
+{#{% endblock %}#}
+
+{% block category %}
+  {% include 'base/product_nav.html' %}
+{% endblock %}
+{% block content %}
+    <div class="main-container product_category">
+    <div class="left_side">
+        <div class="product_left">
+            <div class="title"><span>关于我们</span></div>
+            <div class="left_nav">
+                <ul>
+                    <li style="background-color:#c3c3c3">
+                        <div class="t">
+                            <span class=" icon-right iconfont pull-right"></span>
+                            <a href="{% url 'culture:introduce' %}">公司介绍</a>
+                        </div>
+                    </li>
+                    <li style="background-color:#c3c3c3">
+                        <div class="t">
+                            <span class=" icon-right iconfont pull-right"></span>
+                            <a href="{% url 'culture:culture' %}">公司文化</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="left_side_connect">
+                {% include 'base/connnect_us.html' %}
+            </div>
+        </div>
+    </div>
+        <div class="product_display_box_1" >
+            <div class="product_display_border">
+                <span class="product-recommend">
+                    公司介绍
+                </span>
+                <span class="product-right-box pull-right">
+                    当前位置：<a href="/">首页&gt;</a>关于我们&gt;公司介绍
+                </span>
+            </div>
+            <div class="main">
+                <div class="company_introduce" style="width: 80%;margin-left:65px;color: rgb(102, 102, 102); mso-bidi-font-family: Arial; mso-ascii-font-family: Arial; mso-hansi-font-family: Arial;line-height: 210%;font-size:14px ">
+                    <span class="company_introduce_title" style="padding: 0; border: 1pt windowtext; border-image: none; color: rgb(0, 144, 255);font-family: 'Microsoft YaHei UI'; mso-bidi-font-family: 宋体; mso-font-kerning: 0pt; mso-border-alt: none windowtext 0cm;">&emsp;&emsp;杭州共携科技有限公司位于杭州市萧山区，</span>公司主要从事于半导体行业高纯管路、化学品管路元器件供应，主要销售WIKA、WISE、TKF、FUJIKIN、KITZ、PALL、APTECH、TESCOM、SUPERLOK等产品.<br>&emsp;&emsp;我们以客户体验第一为导向，去打造高品质、服务型公司。我们拥有团结协作、勇于开拓的高素质营销队伍，以优质的服务，灵活有效的方式经营，秉承“以实力求生存，以信誉求发展”的经营理念，以“诚信经营、互惠互利、共同发展”为原则，为广大新老客户提供更优质，更专业的服务，共创美好的明天！欢迎广大客户来电来访洽谈业务!
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

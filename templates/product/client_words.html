@@ -1,0 +1,73 @@
+{% extends 'base/front_base.html' %}
+{% block title %}
+访客留言-杭州共携科技有限公司
+{% endblock %}
+{% block category %}
+    {% include 'base/product_nav.html' %}
+{% endblock %}
+{% block banner %}
+    {% include 'base/banners.html' %}
+{% endblock %}
+{% block content %}
+    <div class="main-container product_category">
+        <div class="left_side">
+            <div class="product_left">
+                <div class="title"><span>客户留言</span></div>
+                <div class="left_nav">
+                    <ul>
+                        <li style="background-color:#c3c3c3">
+                            <div class="t">
+                                <span class=" icon-right iconfont pull-right"></span>
+                                <a href="javascript:void (0)">客户留言</a></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="left_side_connect">
+                    {% include 'base/connnect_us.html' %}
+                </div>
+            </div>
+        </div>
+        <div class="product_display_box_1" >
+            <div class="product_display_border">
+                <span class="product-recommend">
+                    客户留言
+                </span>
+                <span class="product-right-box pull-right">
+                    当前位置：<a href="/">首页&gt;</a>客户留言
+                </span>
+            </div>
+            <div class="main" style="font-size: 14px">
+                <form action="" method="post" autocomplete="on" id="form1" name="form1" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="leave_word" style="padding: 20px">
+                        <div class="form-group form-inline">
+                            <label for="username">姓&nbsp;&nbsp;&nbsp;&nbsp;&emsp;名：</label>
+                            <input type="text" class="form-control" name="username" id="username"/>
+                            <span class="FontTab" style="color: red">*</span>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="tel">电&nbsp;&nbsp;&nbsp;&nbsp;&emsp;话：</label>
+                            <input type="text" class="form-control" name="tel" id="tel"/>
+                            <span class="FontTab" style="color: red">*</span>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="email">电子邮箱：</label>
+                            <input type="text" class="form-control" name="email" id="email" autocomplete='email'/>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="content">留言内容：</label>
+                            <textarea name="content" id="content" cols="60" rows="5" style="border: 1px solid #ced4da"></textarea>
+                            <span class="FontTab" style="color: red">*</span>
+                        </div>
+                        <input type="submit" class="btn btn-default" value="发表留言" style="font-size: 14px;" id="submit_id" onClick='javascript:return comment_check()'>
+{#                        <input type="submit" class="btn btn-default" value="发表留言" style="font-size: 14px;" id="submit_id">#}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script charset="utf-8" type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+{#    <script src="{% static 'js/index_client_words.js' %}"></script>#}
+{% endblock %}

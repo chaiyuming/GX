@@ -1,0 +1,41 @@
+html{background:none repeat scroll 0 0 #FFFFFF;  overflow-y:scroll}
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, fieldset, lengend, button, input, textarea, form, th, td{margin:0; padding:0}
+body, button, input, select, textarea{font:14px/1.8 "Microsoft Yahei", verdana}
+.ie10 body,.ie11 body{font:14px/1.8 "Microsoft Yahei", verdana}
+h1, h2, h3, h4, h5, h6{font-size:100%; font-weight:normal}
+button, input, select, textarea{font-size:100%}
+hr{border:0; height:1px; *color:#fff}
+address, cite, dfn, em, var{font-style:normal}
+small{font-size:12px}
+.fl-clear{clear:both}
+.fl-clr{zoom:1}
+.fl-clr:after{display:block; clear:both; height:0; content:"\0020"}
+table{border-collapse:collapse; border-spacing:0}
+ul, ol{list-style:none outside none}
+a{text-decoration:none; color:#696969}
+a:hover{text-decoration:none; color:#ff6637}
+img{border:0}
+
+
+.product_left{width:100%;border-radius:5px 5px 0px 0px;float: left}
+.product_left .title{height:50px; background:#336699; color:#fff; padding:0 10%; line-height:50px}
+/*.product_left .title img{line-height: 50px;text-align: center }*/
+.product_left .title span{background:url(/media/ioc.png) no-repeat 0 center; padding-left:10%;}
+.left_nav{border:1px solid #e6e6e6; border-top:0; overflow:hidden; padding:0 0 20px 0}
+.left_nav ul{margin-top:-1px;}
+.left_nav li{padding:0 10%; border-top:1px dashed #e7e7e7}
+.left_nav li .t{height:40px; line-height:40px; padding:0 0 0 18px; position:relative}
+.left_nav ul li .t a{height:40px; line-height:40px;;width: 100%;display: block}
+.left_nav li .t i{position:absolute; left:0; top:0; width:10%; height:40px;background:url(/media/ioc_l.png) no-repeat 0 center; cursor:pointer}
+.left_nav li .t a,.left_nav li .t.hover:hover a{color:#000}
+.left_nav li .t:hover i{background:url(/media/ioc_la.png) no-repeat 0 center;}
+.left_nav li .t:hover a{color:#ff5825}
+.left_nav li .t.hover i{background:url(/media/ioc_b.png) no-repeat 0 center; }
+.left_nav li .txt{padding:0 0 20px 18px; display:none}
+.left_nav li .txt p{line-height:30px; height:30px; overflow:hidden;cursor: pointer}
+/*.left_nav li a .t{height:40px; line-height:40px; padding:0 0 0 18px; position:relative}*/
+/*.left_nav li a .t i{position:absolute; left:0; top:0; width:18px; height:40px;background:url(/media/ioc_l.png) no-repeat 0 center; cursor:pointer}*/
+/*.left_nav li  a,.left_nav li a .t.hover:hover a{color:#000}*/
+/*.left_nav li a .t:hover i{background:url(/media/ioc_la.png) no-repeat 0 center;}*/
+/*.left_nav li a .t:hover a{color:#ff5825}*/
+/*.left_nav li a .t.hover i{background:url(/media/ioc_b.png) no-repeat 0 center; }*/

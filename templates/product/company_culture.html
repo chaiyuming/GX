@@ -1,0 +1,68 @@
+{% extends 'base/front_base.html' %}
+{% block title %}
+公司文化-杭州共携科技有限公司
+{% endblock %}
+{#{% block link %}#}
+{#{% endblock %}#}
+{% block category %}
+  {% include 'base/product_nav.html' %}
+{% endblock %}
+{#{% block banner %}#}
+{#    {% include 'base/banners.html' %}#}
+{#{% endblock %}#}
+{% block content %}
+    <div class="main-container product_category">
+    <div class="left_side">
+        <div class="product_left">
+            <div class="title"><span>关于我们</span></div>
+            <div class="left_nav">
+                <ul>
+                    <li style="background-color:#c3c3c3">
+                        <div class="t">
+                            <span class=" icon-right iconfont pull-right"></span>
+                            <a href="{% url 'culture:introduce' %}">公司介绍</a></div>
+                    </li>
+                    <li style="background-color:#c3c3c3">
+                        <div class="t">
+                            <span class=" icon-right iconfont pull-right"></span>
+                            <a href="{% url 'culture:culture' %}">公司文化</a></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="left_side_connect">
+                {% include 'base/connnect_us.html' %}
+            </div>
+        </div>
+    </div>
+        <div class="product_display_box_1" >
+            <div class="product_display_border">
+                <span class="product-recommend">
+                    公司文化
+                </span>
+                <span class="product-right-box pull-right">
+                    当前位置：<a href="/">首页&gt;</a>关于我们&gt;公司文化
+                </span>
+            </div>
+            <div class="main">
+                <div class="company_culture_box" style="width: 80%;margin-left:65px;line-height: 210%">
+                    <p>
+                        <strong>公司精神：</strong>
+                        科学、坚持、创新、诚信
+                    </p>
+                    <p>
+                        <strong>服务宗旨：</strong>
+                        以客户体验为第一，实现客户价值为目标
+                    </p>
+                    <p>
+                        <strong>营销理念：</strong>
+                        客户就是上帝，快读的响应，专业的回答
+                    </p>
+                    <p>
+                        <strong>用人理念：</strong>
+                        有才有得，人尽其才
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'cms/base/base.html' %}
+{% block title %}
+  产品二级分类
+{% endblock %}
+
+
+{% block content-header %}
+  产品分类
+{% endblock %}
+{% block content-header-small %}
+  二级分类
+{% endblock %}
+{% block content %}
+  {#    代码是从https://adminlte.io/themes/AdminLTE/pages/forms/general.html复制的#}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header">
+          <a id="add-btn" class="btn btn-primary pull-right" href="{% url 'cms:add_sub_category' %}">添加分类</a>
+        </div>
+        <div class="box-body">
+          <table class="table table-bordered">
+            {#                    thead表示表头，表头中用<tr> <th>#}
+            <thead>
+            <tr>
+              <th>分类一级名称</th>
+              <th>分类二级名称</th>
+              <th>产品数量</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in category_list %}
+                <tr data-id="{{ category.id }}" data-name="{{ category.name }}">
+                  <td>{{ category.parent.name }}</td>
+                  <td>{{ category.name }}</td>
+                  <td>{{ category.num_products }}</td>
+                  <td>
+                    <a class="btn btn-warning btn-xs edit-btn" href="{% url 'cms:edit_sub_category' category.id  %} ">编辑</a>
+                    <button class="btn btn-danger btn-xs btn-del">删除</button>
+                  </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="box-footer"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+      <script src="{% static 'js/cms/product/sub_category.js' %}"></script>
+{% endblock %}

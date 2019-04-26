@@ -1,0 +1,159 @@
+{% extends 'cms/base/base.html' %}
+
+{% block title %}
+  产品列表
+{% endblock %}
+
+{% block link %}
+  <style>
+    .right-margin {
+      margin-right: 20px;
+    }
+
+    .form-group .form-control {
+      width: 155px;
+    }
+  </style>
+{% endblock %}
+{% block content-header %}
+  产品列表
+{% endblock %}
+{% block content %}
+  <div class="box">
+    <div class="box-header">
+      <form action="" class="form-inline">
+        <div class="form-group right-margin">
+          <label for="title-input">关键字：</label>
+          {% if title %}
+            <input type="text" class="form-control " name="title" id="title-input" placeholder="关键字"
+                   value="{{ title }}">
+          {% else %}
+            <input type="text" class="form-control " name="title" id="title-input" placeholder="关键字">
+          {% endif %}
+        </div>
+        <div class="form-group right-margin">
+          <label for="top_category">一级分类：</label>
+          <select name="top_category" id="top_category" class="form-control">
+            <option value="0">- - -  一级分类  - - -</option>
+            {% for top_category in top_categories %}
+              {% if top_category_id and top_category_id == top_category.id %}
+                <option value="{{ top_category.id }}" selected>{{ top_category.name }}</option>
+              {% else %}
+                <option value="{{ top_category.id }}">{{ top_category.name }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group right-margin">
+          <label for="sub_category">二级分类：</label>
+          <select name="sub_category" id="sub_category" class="form-control" >
+            <option value="0">- - -  二级分类  - - -</option>
+            {% for sub_category in sub_categories %}
+              {% if sub_category_id and sub_category_id == sub_category.id %}
+                <option value="{{ sub_category.id }}" selected>{{ sub_category.name }}</option>
+              {% else %}
+                <option value="{{ sub_category.id }}">{{ sub_category.name }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <button class="btn btn-primary right-margin">查询</button>
+        <a href="{% url 'cms:product_manage' %}" class="right-margin btn btn-danger">清除查询</a>
+      </form>
+    </div>
+    <div class="box-body">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <td>产品品牌</td>
+          <td>产品型号</td>
+          <td>一级分类</td>
+          <td>二级级分类</td>
+          <td>图片路径</td>
+          <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+          <tr data-id="{{ product.pk }}" data-name="{{ product.version }}">
+            <td>{{ product.brand|truncatechars:13 }}</td>
+            <td>{{ product.version|escape }}</td>
+            <td>{{ product.category.parent.name }}</td>
+            <td>{{ product.category.name }}</td>
+            <td>{{ product.thumbnail|truncatechars:45 }} </td>
+            <td>
+               <a href="{% url 'cms:product_edit' product.id %}" class="btn btn-warning btn-xs">编辑</a>
+              <button class="btn btn-danger btn-xs btn-del" >删除</button>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="box-footer form-inline">
+      <div class="form-group pull-left">
+        <span>第{{ page_object.number }}页/总共{{ paginator.num_pages }}页</span>
+      </div>
+      <div class="form-group pull-right">
+        {#            {% include 'base/pager.html' %}#}
+        <div class="form-group pull-right">
+            <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              {#   如果有上一页       #}
+              {% if page_object.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_object.previous_page_number }}&{{ url_paramter }}"
+                     aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <span aria-hidden="true">&laquo;</span>
+                </li>
+              {% endif %}
+              {#当前页的左边#}
+              {% if left_has_more_page %}
+                <li class="page-item"><a class="page-link" href="?page=1&{{ url_paramter }}">1</a></li>
+                <li class="page-item"><span>...</span></li>
+              {% endif %}
+              {% for page in left_page %}
+                <li class="page-item"><a class="page-link" href="?page={{ page }}&{{ url_paramter }}">{{ page }}</a>
+                </li>
+              {% endfor %}
+              {#当前页#}
+              <li class="page-item active"><a class="page-link"
+                                              href="?page={{ page_object.number }}&{{ url_paramter }}">{{ page_object.number }}</a>
+              </li>
+              {#当前页的右边#}
+              {% for page in right_page %}
+                <li class="page-item"><a class="page-link" href="?page={{ page }}&{{ url_paramter }}">{{ page }}</a>
+                </li>
+              {% endfor %}
+              {% if right_has_more_page %}
+                <li class="page-item"><span>...</span></li>
+                <li class="page-item"><a class="page-link"
+                                         href="?page={{ paginator.num_pages }}&{{ url_paramter }}">{{ paginator.num_pages }}</a>
+                </li>
+              {% endif %}
+              {% if page_object.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_object.next_page_number }}&{{ url_paramter }}"
+                     aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled"><span aria-hidden="true">&raquo;</span></li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/cms/product/base_category.js' %}"></script>
+    <script src="{% static 'js/cms/product/product_manage.js' %}"></script>
+{% endblock %}

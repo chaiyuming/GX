@@ -1,0 +1,69 @@
+{% extends 'base/front_base.html' %}
+{#{% load news_filters %}#}
+{% block title %}
+新闻资讯-杭州共携科技有限公司
+{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/news/news.css' %}">
+{% endblock %}
+{% block category %}
+{% include 'base/product_nav.html' %}
+{% endblock %}
+{% block content %}
+    <div class="main-container product_category">
+        <div class="left_side">
+            <div class="product_left">
+                <div class="title"><span>新闻资讯</span></div>
+                <div class="left_nav">
+                    <ul>
+                        <li style="background-color:#c3c3c3">
+                            <div class="t">
+                                <span class=" icon-right iconfont pull-right"></span>
+                                <a href="{% url 'news:news' %}">新闻中心</a></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="left_side_connect">
+                    {% include 'base/connnect_us.html' %}
+                </div>
+            </div>
+        </div>
+        <div class="product_display_box_1" >
+            <div class="product_display_border">
+                <span class="product-recommend">
+                    新闻中心
+                </span>
+                <span class="product-right-box pull-right">
+                    当前位置：<a href="/">首页&gt;</a>新闻资讯
+                </span>
+            </div>
+            <div class="main">
+                <div class="news_con">
+                    <ul>
+                        {% if newses %}
+                            {% for news in newses %}
+                                <li>
+                                    <i class="icon-yuandian1 iconfont"></i>
+                                    <a class="news_title" href="{% url 'news:news_detail' news.id %}">{{ news.title|truncatechars:30 }}</a>
+                                    <span class="pub_time pull-right">[发布时间：{{ news.update_time|date:'Y/m/d'}}]</span>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <div class="no_info">
+                                暂无信息
+                            </div>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="product-list-footer form-inline">
+              <div class="page-left pull-left">
+                <span>第{{ pag_objects.number }}页/总共{{ paginator.num_pages }}页</span>
+              </div>
+              <div class="page-number pull-right">
+                {% include 'base/index_pager.html' %}
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

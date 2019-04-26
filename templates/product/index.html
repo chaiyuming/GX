@@ -1,0 +1,101 @@
+{% extends 'base/front_base.html' %}
+{% block title %}
+  杭州共携科技有限公司
+{% endblock %}
+
+{% block link %}
+{#  <link rel="stylesheet" href="{% static 'css/product/web_index.css' %}">#}
+{#  <link rel="stylesheet" href="{% static 'css/product/theme.css' %}">#}
+{% endblock %}
+{% block category %}
+  {% include 'base/product_nav.html' %}
+{% endblock %}
+{% block content %}
+  <div class="main-produce main-container">
+    <div class="pro_content">
+      <div class="pro_left">
+        <i class="icon-hot iconfont pro_logo"></i>
+        <span class="logo_font">主营产品：</span>
+      </div>
+      <div class="mar">
+        <marquee width="888">
+          <strong>杭州共携科技有限公司</strong>主营五金交电，水管阀门，泵，工程用管材阀件，仪表阀门，仪表管接件，电线电缆，电气设备及其零部件，化工原料及产品
+          （除危险化学品、监控化学品、烟花爆竹、民用爆炸物品、易制毒化学品） ，建筑材料销售， 从事货物进出口及技术进出口业务.
+        </marquee>
+      </div>
+    </div>
+  </div>
+  <div class="com-group-in">
+    <div class="main-container company_introduce clearfix">
+      <span class="company_introduce_title">杭州共携科技有限公司</span><br>
+      <span class="company_introduce_content">&emsp;&emsp;公司主要从事于半导体行业高纯管路、化学品管路元器件供应，以客户体验第一为导向，去打造高品质、服务型公司。公司主要销售WIKA、WISE、TKF、FUJIKIN、KITZ、PALL、APTECH、TESCOM、SUPERLOK等产品，我们拥有团结协作、勇于开拓的高素质营销队伍，以优质的服务，灵活有效的方式经营，秉承“以实力求生存，以信誉求发展”的经营理念，以“诚信经营、互惠互利、共同发展”为原则，为广大新老客户提供更优质，更专业的服务，共创美好的明天！欢迎广大客户来电来访洽谈业务!</span>
+    </div>
+  </div>
+  <div class="main-container product_category">
+    <div class="left_side">
+      <div class="product_left">
+        {#            <i class="iconfont icon-weibiaoti-" style="font-size: 20px;color: white;font-weight: bold;margin-right: 5px"></i>#}
+{#        <div class="title"><span> <img src="/static/images/ioc.png" alt=""> 产品分类</span></div>#}
+        <div class="title"><span> 产品分类</span></div>
+        <div class="left_nav">
+          <ul class="category_list">
+            {% for cate in top_categories %}
+              <li>
+                <div class="t" data-tag_id="{{ cate.id }}" data-tag_name="{{ cate.name }}">
+                  <a href="#">
+                    <i></i>
+                    {{ cate.name }}
+                  </a>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="left_side_connect">
+        {% include 'base/connnect_us.html' %}
+      </div>
+    </div>
+    <div class="product_display_box_1">
+      <div class="product_display_border">
+                <span class="product-recommend">
+                    产品展示
+                </span>
+        <span class="product-right-box">
+{#                    <a href="{% url 'product-index:products_list' %}" class="pull-right">更多&gt;&gt;</a>#}
+                    <a href="#" class="pull-right">更多&gt;&gt;</a>
+                </span>
+      </div>
+      <div class="pro-list-show">
+        <ul class="course-list-group">
+          {% for product in products %}
+            <div class="albumblock">
+              <div class="inner">
+                {#                            <a href="{% url 'product-index:product_detail' p_id=product.pk %}" title="{{ product.describe }}" target="_blank">#}
+                <a href="#" title="{{ product.describe }}" target="_blank">
+                  <img class="thumbnail-group" src="{{ product.thumbnail }}" alt="">
+                  <div class="course-bottom-group">
+                    {{ product.brand }}
+                  </div>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="product-list-footer form-inline">
+        <div class="page-left pull-left">
+          <span>第{{ pag_objects.number }}页/总共{{ paginator.num_pages }}页</span>
+        </div>
+        <div class="page-number pull-right">
+          {% include 'base/index_pager.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  {#  <script src="{% static 'js/template-web.js' %}"></script>#}
+  {#    <script charset="utf-8" type="text/javascript" src="{% static 'js/jquery.js' %}"></script>#}
+{% endblock %}

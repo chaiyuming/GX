@@ -1,0 +1,23 @@
+.main .news_con ul li i{
+    color: #00a0e9;
+}
+.main .news_con ul li{
+    height: 32px;
+    line-height: 32px;
+    border-bottom: 1px solid #c6c6c6;
+}
+.main .news_con ul li .news_title{
+    line-height: 32px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+.main .news_con ul li .pub_time{
+    line-height: 32px;
+    padding-right:20px;
+    color: #999999;
+    cursor: pointer;
+}
+.main .news_con ul li .news_title:hover{
+    color: #00a0e9;
+}
+

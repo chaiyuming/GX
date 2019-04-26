@@ -1,0 +1,136 @@
+{% extends 'cms/base/base.html' %}
+{% block title %}
+新闻列表
+{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'datepicker/bootstrap-datepicker.min.css' %}">
+    <style>
+    .right-margin{
+        margin-right: 20px;
+    }
+    .form-group .form-control{
+        width: 155px;
+    }
+    </style>
+{% endblock %}
+
+{% block content-header %}
+新闻管理
+{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <div class="box-header">
+           <form action="" class="form-inline">
+                <div class="form-group right-margin ">
+                    <label for="time-input">时间：</label>
+                    {% if start %}
+                        <input type="text" class="form-control" name="start" placeholder="起始时间" value="{{ start }}" readonly>
+                    {% else %}
+                        <input type="text" class="form-control" name="start" placeholder="起始时间"  readonly>
+                    {% endif %}
+                    <span>-</span>
+                    {% if end%}
+                        <input type="text" class="form-control " name="end" placeholder="截止时间" value="{{ end }}" readonly>
+                    {% else %}
+                        <input type="text" class="form-control " name="end" placeholder="截止时间" readonly>
+                    {% endif %}
+                </div>
+                <div class="form-group right-margin">
+                    <label for="title-input">关键字：</label>
+                    {% if title %}
+                        <input type="text" class="form-control " name="title" id="title-input" placeholder="关键字" value="{{ title }}">
+                    {% else %}
+                        <input type="text" class="form-control " name="title" id="title-input" placeholder="关键字">
+                    {% endif %}
+                </div>
+                <button class="btn btn-primary right-margin">查询</button>
+    {#               清楚查询其实是定义的一个a标签，让其跳转到news_manage首页。#}
+               <a href="{% url 'cms:news_manage' %}" class="right-margin btn btn-danger">清除查询</a>
+            </form>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>发布时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for news in newses %}
+                        <tr>
+{#                            <td><a href="{% url 'news:news_detail' news_id=news.pk %}">{{ news.title }}</a></td>#}
+                            <td><a href="#">{{ news.title|truncatechars:20 }}</a></td>
+                            <td>{{ news.update_time|date:'Y/m/d' }}</td>
+                            <td>
+                            {#       用拼接的方式方便知道当前编辑的时哪个新闻id                         #}
+                                <a href="{% url 'cms:news_edit' news.id  %}" class="btn btn-warning btn-xs">编辑</a>
+                                <button  class="btn btn-danger btn-xs delete-news-btn" data-news-id="{{ news.id}}">删除</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer form-inline">
+      <div class="form-group pull-left">
+        <span>第{{ page_object.number }}页/总共{{ paginator.num_pages }}页</span>
+      </div>
+      <div class="form-group pull-right">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {#   如果有上一页       #}
+            {% if page_object.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_object.previous_page_number }}&{{ url_paramter }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span aria-hidden="true">&laquo;</span>
+              </li>
+            {% endif %}
+            {#当前页的左边#}
+            {% if left_has_more_page %}
+              <li class="page-item"><a class="page-link" href="?page=1&{{ url_paramter }}">1</a></li>
+              <li class="page-item"><span>...</span></li>
+            {% endif %}
+            {% for page in left_page %}
+              <li class="page-item"><a class="page-link" href="?page={{ page }}&{{ url_paramter }}">{{ page }}</a></li>
+            {% endfor %}
+            {#当前页#}
+            <li class="page-item active"><a class="page-link" href="?page={{ page_object.number }}&{{ url_paramter }}">{{ page_object.number }}</a></li>
+            {#当前页的右边#}
+            {% for page in right_page %}
+              <li class="page-item"><a class="page-link" href="?page={{ page }}&{{ url_paramter }}">{{ page }}</a></li>
+            {% endfor %}
+            {% if right_has_more_page %}
+              <li class="page-item"><span>...</span></li>
+              <li class="page-item"><a class="page-link" href="?page={{ paginator.num_pages }}&{{ url_paramter }}">{{ paginator.num_pages }}</a></li>
+            {% endif %}
+            {% if page_object.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_object.next_page_number }}&{{ url_paramter }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled"><span aria-hidden="true">&raquo;</span></li>
+            {% endif %}
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+  <script src="{% static 'datepicker/bootstrap-datepicker.min.js' %}"></script>
+  {# zh-CN.min.js必须在bootstrap-datepicker.js的后面,如果需要将时间选择器汉化，则必须导入#}
+  <script src="{% static 'datepicker/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+    <script src="{% static 'js/cms/news/cms_news_manage.js' %}"></script>
+{% endblock %}

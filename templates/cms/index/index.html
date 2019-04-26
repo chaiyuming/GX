@@ -1,0 +1,24 @@
+{% extends 'cms/base/base.html' %}
+
+{% block title %}
+首页
+{% endblock %}
+{% block link %}
+
+{% endblock %}
+
+{% block content-header %}
+  用户信息
+{% endblock %}
+
+{% block content-header-small %}
+  唯才是举
+{% endblock %}
+
+{% block content %}
+  <p>{{ user.username }}</p>
+  <p>{{ request.user.username }}</p>
+{% endblock %}
+{% block script %}
+
+{% endblock %}

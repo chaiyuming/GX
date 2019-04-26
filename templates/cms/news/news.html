@@ -1,0 +1,64 @@
+{% extends 'cms/base/base.html' %}
+{% block title %}
+    {% if news %}
+        编辑新闻
+    {% else %}
+        发布新闻
+    {% endif %}
+{% endblock %}
+{% block link %}
+
+{% endblock %}
+{% block content-header %}
+    {% if news %}
+         编辑新闻
+    {% else %}
+        发布新闻
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <form action="" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="news-title">新闻标题</label>
+                            {% if news %}
+                                <input type="text" class="form-control" name="title" id="news-title" value="{{ news.title }}">
+                            {% else %}
+                                <input type="text" class="form-control" name="title" id="news-title">
+                            {% endif %}
+                        </div>
+                            <div class="form-group">
+                                <label for="content-form">内容</label>
+{#                                加载编辑器的内容#}
+                                {% if news %}
+                                     <script id="editor" type="text/plain">{{ news.content|safe}}</script>
+                                {% else %}
+                                    <script id="editor" type="text/plain"></script>
+                                {% endif %}
+                            </div>
+                </form>
+            </div>
+          <div class="box-footer">
+            {% if news %}
+              <button type="submit" class="btn btn-primary pull-right" id="submit-btn" data-news-id="{{ news.id }}">更新</button>
+            {% else %}
+              <button type="submit" class="btn btn-primary pull-right" id="submit-btn">发布</button>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+        {#    导入千牛云的SDK，必须在js/wirte_news.js上面#}
+{#    <script src="https://unpkg.com/qiniu-js@2.4.0/dist/qiniu.min.js"></script>#}
+    <script src="{% static 'js/cms/base/fqiniu.js' %}"></script>
+{#    .config.js一定要放在.all.min.js之前#}
+    <script src="{% static 'ueditor/ueditor.config.js' %}"></script>
+    <script src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+    <script src="{% static 'js/cms/news/pub_news.js' %}"></script>
+{% endblock %}

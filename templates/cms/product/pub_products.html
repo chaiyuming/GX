@@ -1,0 +1,128 @@
+{% extends 'cms/base/base.html' %}
+{% block title %}
+  {% if product %}
+    编辑产品
+  {% else %}
+    发布产品
+  {% endif %}
+{% endblock %}
+
+
+{% block content-header %}
+  {% if product %}
+    编辑产品
+  {% else %}
+    发布产品
+  {% endif %}
+
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <form action="" method="post">
+          <div class="box-body">
+            <div class="form-group">
+              <label for="product-brand">产品品牌</label>
+              {% if product %}
+                <input type="text" class="form-control" name="brand" id="product-brand" value="{{ product.brand }}"
+                       placeholder="请输入产品品牌">
+              {% else %}
+                <input type="text" class="form-control" name="brand" id="product-brand" placeholder="请输入产品品牌">
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="product-version">产品型号</label>
+              {% if product %}
+                <input type="text" class="form-control" name="version" id="product-version"
+                       value="{{ product.version }}" placeholder="请输入产品型号">
+              {% else %}
+                <input type="text" class="form-control" name="version" id="product-version" placeholder="请输入产品型号">
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="product-describe">产品描述</label>
+              {% if product %}
+                <textarea name="describe" id="product-describe" cols="30" rows="10" placeholder="请输入产品描述"
+                          class="form-control"
+                          style="height: 8rem;resize: none">{{ product.describe }}</textarea>
+              {% else %}
+                <textarea name="describe" id="product-describe" cols="30" rows="10" placeholder="请输入产品描述"
+                          class="form-control"
+                          style="height: 8rem;resize: none"></textarea>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="category-form">一级分类 <span style="font-size: 10px;color: red">(请先选择一级分类，再选择二级分类)</span></label>
+              <select class="form-control" name="top_category" id="top_category">
+                <option value="0">- - - 一级分类 - - -</option>
+                {% for category in top_categories %}
+                  {% if product and product.category.parent_id == category.pk %}
+                    <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                  {% else %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="category-form">二级分类 <span style="font-size: 10px;color: red">(请先选择一级分类，再选择二级分类)</span></label>
+              <select class="form-control" name="sub_category" id="sub_category">
+                <option value="0">- - - 二级分类 - - -</option>
+                {% for category in sub_categories %}
+                    {% if product and product.category.pk == category.pk %}
+                        <option value="{{ category.pk }}" selected>{{ category.name }}</option>
+                    {% else%}
+                        <option value="{{ category.pk }}">{{ category.name }}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+            <div class="from-group">
+              <label for="thumbnail-form">缩略图</label>
+              <div class="input-group">
+                {% if product %}
+                  <input type="text" class="form-control" name="thumbnail" id="product-thumbnail" placeholder="请输入缩略图"
+                         value="{{ product.thumbnail }}">
+                {% else %}
+                  <input type="text" class="form-control" name="thumbnail" id="product-thumbnail" placeholder="请输入缩略图">
+                {% endif %}
+                <span class="input-group-btn">
+                                  <label class="btn btn-default btn-file">
+                                      上传至服务器
+                                      <input type="file" name="btn" id="upload_news_to_fds">
+                                  </label>
+                                  <button class="btn btn-info" id="upload-btn">上传至七牛云</button>
+                              </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="progress" style="display: none">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0;">0%</div>
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="box-footer">
+        {% if product %}
+        <button type="submit" class="btn btn-primary pull-right" id="submit-btn" data-product-id="{{ product.id }}">更新</button>
+        {% else %}
+        <button type="submit" class="btn btn-primary pull-right" id="submit-btn">发布</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block script %}
+  <!-- 七牛云 客户端 并不经过服务端 服务器需要提供 token -->
+  <script src="https://cdn.bootcss.com/plupload/2.1.9/moxie.min.js"></script>
+  <script src="https://cdn.bootcss.com/plupload/2.1.9/plupload.dev.js"></script>
+  <script src="https://cdn.bootcss.com/qiniu-js/1.0.17.1/qiniu.min.js"></script>
+
+  <script src="{% static 'js/cms/base/fqiniu.js' %}"></script>
+  <script src="{% static 'js/cms/product/add_product.js' %}"></script>
+  <script src="{% static 'js/cms/product/base_category.js' %}"></script>
+{% endblock %}

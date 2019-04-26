@@ -1,0 +1,117 @@
+{% extends 'base/front_base.html' %}
+{#{% load news_filters %}#}
+{% block title %}
+  产品详情信息-杭州共携科技有限公司
+{% endblock %}
+{% block link %}
+  <link rel="stylesheet" href="{% static 'css/product/product_detail.css' %}">
+  {#    <script charset="utf-8" type="text/javascript" src="{% static 'js/jquery.js' %}"></script>#}
+
+{% endblock %}
+{% block category %}
+  {% include 'base/product_nav.html' %}
+{% endblock %}
+{% block content %}
+  <div class="main-container product_category">
+    <div class="left_side">
+      <div class="product_left">
+        <div class="title"><span>产品展示</span></div>
+        <div class="left_nav">
+          <ul class="category_list">
+            {% for top_category in top_categories %}
+              <li>
+                <div class="t" data-tag-id="{{ top_category.id }}" data-tag-name="{{ top_category.name }}">
+                  <a href="{% url 'product:product_center' %}?top_tag_id={{ top_category.id }}">
+                    <i style="position:absolute; left:0; top:0; width:18px; height:40px;background:url(/media/ioc_l.png) no-repeat 0 center; cursor:pointer"></i>
+                    {{ top_category.name }}
+                  </a>
+                </div>
+                <div class="txt">
+                  {% with top_category.sub_category.all as sub_categories %}
+                    {% if sub_categories %}
+                      {% for sub_category in sub_categories %}
+                        <p data-sub_type_id="{{ sub_category.id }}"><a
+                                href="{% url 'product:product_center' %}?top_tag_id={{ top_category.id }}&sub_tag_id={{ sub_category.id }}">{{ sub_category.name }}（{{ sub_category.products.count }}）</a>
+                        </p>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="left_side_connect">
+          {% include 'base/connnect_us.html' %}
+        </div>
+      </div>
+    </div>
+    <div class="product_display_box_1">
+      <div class="product_display_border">
+                <span class="product-recommend">
+                    {{ products.category.name }}
+                </span>
+        <span class="product-right-box pull-right">
+                    当前位置：<a href="/">首页&gt;</a>产品中心&gt;{{ products.category.parent.name }}&gt;{{ products.category.name }}
+                </span>
+      </div>
+      <div class="main">
+        <div class="content">
+          <div class="ProInfo">
+            <div class="product-image">
+              <a href="{{ products.thumbnail }}" title="{{ products.describe }}"><img src="{{ products.thumbnail }}" alt=""></a>
+            </div>
+            <div class="column">
+              <div class="title">
+                <p>{{ products.describe }}</p>
+              </div>
+              <div class="infos">
+                图片更新：{{ products.update_time|date:'Y/m/d' }}
+              </div>
+              <ul>
+                <li>
+                  <span>产品品牌：</span>
+                  &nbsp;&nbsp;&nbsp;{{ products.brand }}
+                </li>
+                <li>
+                  <span>产品型号：</span>
+                  &nbsp;&nbsp;&nbsp;{{ products.version }}
+                </li>
+                <li>
+                  <span>产品描述：</span>
+                  <p>{{ products.describe }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="product-introduce">
+            <div class="info_title">产品介绍</div>
+            <p>{{ products.describe }}</p>
+          </div>
+          <div class="product-introduce more-product">
+            <div class="info_title">更多产品</div>
+            <div class="info_content">
+              {% for product in random_products %}
+                <div class="albumblock">
+                  <div class="inner">
+                    <a href="{% url 'product:product_detail' p_id=product.pk %}" title="{{ product.describe }}"
+                       target="_blank">
+                      <img class="thumbnail-group" src="{{ product.thumbnail }}" alt="">
+                      <div class="course-bottom-group">
+                        {{ product.brand }}
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/product/theme.js' %}"></script>
+{% endblock %}

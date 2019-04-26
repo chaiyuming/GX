@@ -1,0 +1,54 @@
+{% extends 'base/front_base.html' %}
+{% block title %}
+联系我们-杭州共携科技有限公司
+{% endblock %}
+{% block link %}
+
+{% endblock %}
+{% block category %}
+{% include 'base/product_nav.html' %}
+{% endblock %}
+{% block content %}
+    <div class="main-container product_category">
+    <div class="left_side">
+        <div class="product_left">
+            <div class="title"><span>联系我们</span></div>
+            <div class="left_nav">
+                <ul>
+                    <li style="background-color:#c3c3c3">
+                        <div class="t">
+                            <span class=" icon-right iconfont pull-right"></span>
+                            <a href="#">联系我们</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="left_side_connect">
+                {% include 'base/connnect_us.html' %}
+            </div>
+        </div>
+    </div>
+        <div class="product_display_box_1" >
+            <div class="product_display_border">
+                <span class="product-recommend">
+                    联系我们
+                </span>
+                <span class="product-right-box pull-right">
+                    当前位置：<a href="/">首页&gt;</a>联系我们
+                </span>
+            </div>
+            <div class="main">
+                <div class="contact">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><strong>杭州共携科技有限公司</strong></li>
+                      <li class="list-group-item">联系人：刘经理</li>
+                      <li class="list-group-item">手机：<span style="color: red;font-weight: bold;">183-6887-9756</span></li>
+                      <li class="list-group-item">E-mail：18368879756@139.com</li>
+                      <li class="list-group-item">地址：浙江省杭州市萧山区太古广场1幢816室</li>
+                      <li class="list-group-item">网址：www.gongxietech.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

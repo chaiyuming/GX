@@ -1,0 +1,65 @@
+.left_sidebar_bottom_box{
+    width:100%;
+    float: left;
+    /*position: relative*/
+}
+.left_sidebar_bottom_box .bbox_header{
+    height:50px;
+    background:#336699;
+    color:#fff;
+    padding:0 10%;
+    line-height:50px;
+    font-size: 1.1em;
+
+}
+.left_sidebar_bottom_box .bbox_header i{
+    font-size: 1.2em;
+    margin-right: 2%;
+
+}
+.left_sidebar_bottom_box .bbox_body{
+    border:1px solid #e6e6e6;
+}
+.left_sidebar_bottom_box .bbox_body .box-telephone{
+    height: 60px;
+    margin-left: 10%;
+}
+.left_sidebar_bottom_box .bbox_body .box-telephone i {
+    display: inline-block;
+    float: left;
+    font-size: 2em;
+    color: #3a3a3a;
+    line-height: 60px;
+    text-align: center;
+}
+.left_sidebar_bottom_box .bbox_body .box-telephone span{
+    margin-left: 10%;
+    display: inline-block;
+    float: left;
+    margin-top: 7px;
+    font-size: 1.1em;
+    color: #ff5500;
+}
+.bbox_body .box-com-det{
+    padding: 20px 5%;
+    background-color: #F2F2F2;
+
+}
+.bbox_body .box-com-det p {
+    padding-left: 3px;
+    font-size: 0.9em;
+    padding-bottom: 5px;
+    /*letter-spacing: 0.5px;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+

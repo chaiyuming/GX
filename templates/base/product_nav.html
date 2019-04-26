@@ -1,0 +1,8 @@
+<ul class="nav_second_menu">
+    {% for top_category in top_categories %}
+        <a href="{% url 'product:product_center' %}?top_tag_id={{ top_category.id }}">
+            <li class="nav_sec_det" style="font-size: 14px">{{ top_category.name }}</li>
+        </a>
+    {% endfor %}
+</ul>
+
