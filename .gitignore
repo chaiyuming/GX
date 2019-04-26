@@ -1,0 +1,9 @@
+static/ueditor/
+static/images/
+static/sweetalert/
+static/font-awesome-4.7.0/
+settings.py
+utils/
+media/
+.idea
+*.pyc
