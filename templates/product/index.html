@@ -42,7 +42,7 @@
             {% for cate in top_categories %}
               <li>
                 <div class="t" data-tag_id="{{ cate.id }}" data-tag_name="{{ cate.name }}">
-                  <a href="#">
+                  <a href="{% url 'product:product_center' %}?top_tag_id={{ cate.id }}">
                     <i></i>
                     {{ cate.name }}
                   </a>

@@ -17,4 +17,4 @@ class ClientWords(ModelBase):
         verbose_name='客户留言'
         verbose_name_plural=verbose_name
     def __str__(self):
-        return self.title
+        return self.username

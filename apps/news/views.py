@@ -1,6 +1,6 @@
 import logging
 
-from django.shortcuts import render
+from django.shortcuts import render,Http404
 from django.views import View
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 

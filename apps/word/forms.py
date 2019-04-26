@@ -22,7 +22,7 @@ class ClientWordsForm(forms.Form):
     content = forms.CharField(required=True, error_messages={
         'required': '请输入内容^_^',
     })
-
+    email=forms.EmailField()
     def clean_username(self):
         '''
         check username
