@@ -19,6 +19,7 @@ from utils.json_fun import to_json_data
 from utils.res_code import Code, error_map
 from apps.product import models
 from apps.news.models import News
+from apps.word.models import ClientWords
 from utils.fastdfs.fdfs import FDFS_Client
 from . import forms,constants
 from utils.paginator_script import get_paginator_data
@@ -635,6 +636,28 @@ class NewsEditView(PermissionRequiredMixin,View):
                 error_msg_list.append(item[0].get('message'))
             error_msg_str = '/'.join(error_msg_list)
             return to_json_data(errno=Code.PARAMERR, errmsg=error_msg_str)
+
+class WordsView(PermissionRequiredMixin,View):
+    permission_required = ('word.view_clientwords',)
+    raise_exception = True
+    def get(self,request):
+        client_words=ClientWords.objects.only('username','telephone','email','update_time','content').filter(is_delete=False)
+        return render(request,'cms/word/words.html',locals())
+
+class BannerView(PermissionRequiredMixin,View):
+    '''
+    add the banners view
+    '''
+    permission_required = ('product.add_banner','product.view_banner')
+    raise_exception = True
+    def handle_no_permission(self):
+        if self.request.method.lower() != 'get':
+            return to_json_data(errno=Code.ROLEERR, errmsg='没有操作权限')
+        else:
+            return super(BannerView, self).handle_no_permission()
+    def get(self,request):
+        return render(request,'cms/product/banners.html')
+
 
 
 

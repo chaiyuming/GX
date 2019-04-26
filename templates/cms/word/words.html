@@ -1,0 +1,48 @@
+{% extends 'cms/base/base.html' %}
+{#{% load news_filters %}#}
+{% block title %}
+客户留言
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content-header %}
+  客户留言
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                <table class="table table-bordered">
+{#                    thead表示表头，表头中用<tr> <th>#}
+                    <thead>
+                        <tr>
+                            <th>客户姓名</th>
+                            <th>手机号码</th>
+                            <th>电子邮箱</th>
+                            <th>留言时间</th>
+                            <th>留言内容</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for clientword in client_words %}
+                                <tr  data-pk="{{ clientword.pk }}" data-name="{{ clientword.telephone }}">
+                                    <td>{{ clientword.username }}</td>
+                                    <td>{{ clientword.telephone }}</td>
+                                    <td>{{ clientword.email}}</td>
+                                    <td>{{ clientword.update_time|date:'Y/m/d/H:i:s'}}</td>
+                                    <td>
+                                       {{ clientword.content }}
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -21,4 +21,8 @@ urlpatterns = [
     path('news/',views.PubNewsView.as_view(),name='pub_news'),
     path('news/manage/',views.NewsManageView.as_view(),name='news_manage'),
     path('news/<int:news_id>/',views.NewsEditView.as_view(),name='news_edit'),
+
+    path('words/',views.WordsView.as_view(),name='words'),
+
+    path('banner/',views.BannerView.as_view(),name='banner'),
 ]

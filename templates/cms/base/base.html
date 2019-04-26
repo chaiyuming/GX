@@ -142,10 +142,10 @@ desired effect
         <li class="header">新闻资讯</li>
         <li><a href="{% url 'cms:news_manage' %}"><i class="fa fa-list"> </i> <span>新闻列表</span></a></li>
         <li><a href="{% url 'cms:pub_news' %}"><i class="fa fa-edit"> </i> <span>发布新闻</span></a></li>
-        <li class="header">首页轮播图</li>
-        <li><a href="#"><i class="fa fa-image"> </i> <span>轮播图管理</span></a></li>
+        <li class="header">网站轮播图</li>
+        <li><a href="{% url 'cms:banner' %}"><i class="fa fa-image"> </i> <span>轮播图管理</span></a></li>
         <li class="header">客户</li>
-        <li><a href="#"><i class="fa fa-wechat"> </i> <span>客户留言</span></a></li>
+        <li><a href="{% url 'cms:words' %}"><i class="fa fa-wechat"> </i> <span>客户留言</span></a></li>
 
 
         {#     perms.appname或者perms.appname.add_news,change_news,    #}
