@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                             <th>一级分类</th>
-                            <th>产品数量</th>
+{#                            <th>产品数量</th>#}
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -32,7 +32,7 @@
                         {% for category in categories %}
                                 <tr  data-id="{{ category.id }}" data-name="{{ category.name }}">
                                     <td>{{ category.name }}</td>
-                                    <td>{{ category.num_products }}</td>
+{#                                    <td>{{ category.num_products }}</td>#}
                                     <td>
                                         <button class="btn btn-xs btn-warning btn-edit">编辑</button>
                                         <button class="btn btn-danger btn-xs btn-del">删除</button>

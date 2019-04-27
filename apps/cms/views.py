@@ -56,10 +56,7 @@ class ProductTopTagManageView(PermissionRequiredMixin, View):
         :return:
         '''
         # annotate()级联查询
-        categories = models.ProductCategory.objects.only('parent__name','parent_id').annotate(num_products=Count('products')).filter(is_delete=False,parent_id=None).order_by('-num_products', '-update_time')
-        # categories_list=[]
-        # for category in categories:
-        #     categories_list.append(category.to_dict_data())
+        categories = models.ProductCategory.objects.values('name','id').annotate(num_products=Count('products')).filter(is_delete=False,parent_id=None).order_by('-num_products', '-update_time')
         return render(request, 'cms/product/products_top_category.html', locals())
     def post(self, request):
         # 1、从前端获取数据
