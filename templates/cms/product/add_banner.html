@@ -1,0 +1,76 @@
+{% extends 'cms/base/base.html' %}
+
+{% block title %}
+  添加轮播图
+{% endblock %}
+
+{% block content-header %}
+  添加轮播图
+{% endblock %}
+
+{% block content-header-small %}
+  添加轮播图
+{% endblock %}
+
+{% block link %}
+<style>
+    .banner-img {
+      width: 328px;
+      height: 82px;
+    }
+
+    .banner-img img {
+      width: 100%;
+      max-height: 100%;
+    }
+    .form-group input{
+        width: 420px;
+    }
+    .more-group{
+        margin-left: 20px;
+    }
+    .more-group .priority-select{
+      width: 210px;
+    }
+    @media screen and (max-width: 1100px) {
+      .form-group {
+        margin-top: 15px;
+      }
+    }
+  </style>
+{% endblock %}
+{% block content %}
+
+  <div class="box box-primary">
+    <div class="box-body">
+      <div class="banner-img pull-left">
+        <input type="file" name="banner-image-select" style="display: none;">
+        <img src="{% static 'images/banner.png' %}" class="img-thumbnail banner-image">
+      </div>
+      <div class="more-group pull-left">
+        <div class="form-group priority-select">
+            <select name="priority" id="priority" class="form-control input-md">
+              <option value="0">- - - 请选择优先级 - - -</option>
+              {% for id, value in priority_dict.items %}
+                <option value="{{ id }}">{{ value }}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="link_to" style="display: none;"></label>
+          <input type="text" class="form-control" name="link_to" placeholder="请输入跳转链接" id="link_to">
+        </div>
+      </div>
+    </div>
+    <div class="box-footer">
+        <a href="javascript:void(0);" class="btn btn-primary pull-right" id="save-btn">保存</a>
+      </div>
+
+  </div>
+{% endblock %}
+
+
+{% block script %}
+  <script src="{% static 'js/cms/product/banner_img_update_to_fastfdfs.js' %}"></script>
+  <script src="{% static 'js/cms/product/add_banner.js' %}"></script>
+{% endblock %}

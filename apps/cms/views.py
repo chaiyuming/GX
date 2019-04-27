@@ -14,6 +14,7 @@ from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 from urllib import parse
+from collections import OrderedDict
 
 from utils.json_fun import to_json_data
 from utils.res_code import Code, error_map
@@ -644,9 +645,19 @@ class WordsView(PermissionRequiredMixin,View):
         client_words=ClientWords.objects.only('username','telephone','email','update_time','content').filter(is_delete=False)
         return render(request,'cms/word/words.html',locals())
 
-class BannerView(PermissionRequiredMixin,View):
+class BannerManageView(PermissionRequiredMixin,View):
     '''
-    add the banners view
+    the banners  view
+    '''
+    permission_required = ('product.view_banner',)
+    raise_exception = True
+    def get(self,request):
+        banners=models.Banner.objects.only('id','image_url','priority','link_to').filter(is_delete=False)
+        priority_dict=OrderedDict(models.Banner.PRI_CHOICE)
+        return render(request,'cms/product/banners.html',locals())
+class AddBannerView(PermissionRequiredMixin,View):
+    '''
+    add the banner view
     '''
     permission_required = ('product.add_banner','product.view_banner')
     raise_exception = True
@@ -654,9 +665,100 @@ class BannerView(PermissionRequiredMixin,View):
         if self.request.method.lower() != 'get':
             return to_json_data(errno=Code.ROLEERR, errmsg='没有操作权限')
         else:
-            return super(BannerView, self).handle_no_permission()
+            return super(AddBannerView, self).handle_no_permission()
     def get(self,request):
-        return render(request,'cms/product/banners.html')
+        priority_dict = OrderedDict(models.Banner.PRI_CHOICE)
+        return render(request, 'cms/product/add_banner.html', locals())
+    def post(self,request):
+        json_data=request.body
+        if not json_data:
+            return to_json_data(errno=Code.PARAMERR,errmsg=error_map([Code.PARAMERR]))
+        dict_data=json.loads(json_data.decode('utf8'))
+        try:
+            priority=int(dict_data.get('priority'))
+            priority_list=[i for i,_ in models.Banner.PRI_CHOICE]
+            if priority not in priority_list:
+                return to_json_data(errno=Code.PARAMERR, errmsg='优先级设置错误')
+        except Exception as e:
+            logger.error('优先级设置错误：{}'.format(e))
+            return  to_json_data(errno=Code.PARAMERR, errmsg='优先级设置错误')
+        image_url=dict_data.get('image_url')
+        if not image_url:
+            return to_json_data(errno=Code.PARAMERR,errmsg='轮播图url不能为空')
+        try:
+            link_to=dict_data.get('link_to')
+            if not link_to:
+                return to_json_data(errno=Code.PARAMERR, errmsg='跳转链接不能为空')
+        except Exception as e:
+            logger.error('跳转链接格式错误：{}'.format(e))
+            return  to_json_data(errno=Code.PARAMERR, errmsg='跳转链接格式错误')
+
+        banner,banner_boolean=models.Banner.objects.get_or_create(priority=priority,link_to=link_to,image_url=image_url)
+        if banner_boolean:
+            return to_json_data(errmsg='轮播图创建成功！')
+        else:
+            return to_json_data(errno=Code.PARAMERR,errmsg='轮播图已存在，请重新输入')
+class BannerEditView(PermissionRequiredMixin,View):
+    '''
+    delete and update the banner view
+    '''
+    permission_required = ('product.change_banner', 'product.delete_banner')
+    raise_exception = True
+
+    def handle_no_permission(self):
+        if self.request.method.lower() != 'get':
+            return to_json_data(errno=Code.ROLEERR, errmsg='没有操作权限')
+        else:
+            return super(BannerEditView, self).handle_no_permission()
+    def delete(self,request,banner_id):
+        '''
+        delete the banner
+        :param request:
+        :param banner_id:
+        :return: '/cms/banner/<int:banner_id>/'
+        '''
+        banner=models.Banner.objects.only('id').filter(is_delete=False,id=banner_id).first()
+        if not banner:
+            return to_json_data(errno=Code.PARAMERR,errmsg='您要删除的轮播图不存在！')
+        else:
+            banner.is_delete=True
+            banner.save(update_fields=['is_delete'])
+            return to_json_data(errmsg='轮播图删除成功')
+    def put(self,request,banner_id):
+        banner = models.Banner.objects.only('id').filter(is_delete=False, id=banner_id).first()
+        if not banner:
+            return to_json_data(errno=Code.PARAMERR, errmsg='您要删除的轮播图不存在！')
+        json_data=request.body
+        if not json_data:
+            return to_json_data(errno=Code.PARAMERR,errmsg=error_map([Code.PARAMERR]))
+        dict_data=json.loads(json_data.decode('utf8'))
+        image_url=dict_data.get('image_url')
+        if not image_url:
+            return to_json_data(errno=Code.PARAMERR,errmsg='轮播图url不能为空')
+        try:
+            link_to=dict_data.get('link_to')
+            if not link_to:
+                return to_json_data(errno=Code.PARAMERR, errmsg='跳转链接不能为空')
+        except Exception as e:
+            logger.error('轮播图url参数错误：{}'.format(e))
+            return to_json_data(errno=Code.PARAMERR,errmsg='轮播图url参数错误')
+        try:
+            priority=int(dict_data.get('priority'))
+            priority_list=[i for i ,_ in models.Banner.PRI_CHOICE]
+            if priority not in priority_list:
+                return to_json_data(errno=Code.PARAMERR, errmsg='优先级设置错误')
+        except Exception as e:
+            logger.error('优先级设置错误{}'.format(e))
+            return to_json_data(errno=Code.PARAMERR, errmsg='优先级设置错误')
+        if banner.image_url==image_url and banner.priority==priority and banner.link_to==link_to:
+            return to_json_data(errno=Code.PARAMERR, errmsg='未修改任何值,请确认!')
+        banner.link_to=link_to
+        banner.priority=priority
+        banner.image_url=image_url
+        banner.save(update_fields=['priority', 'image_url','link_to'])
+        return to_json_data(errmsg="轮播图更新成功")
+
+
 
 
 

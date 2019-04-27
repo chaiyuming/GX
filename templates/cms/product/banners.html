@@ -1,90 +1,95 @@
 {% extends 'cms/base/base.html' %}
 {% block title %}
-轮播图管理
+  轮播图管理
 {% endblock %}
+
 
 {% block link %}
-    <link rel="stylesheet" href="{% static 'css/cms/product/banners.css' %}">
-
+    <style>
+    .banner-img {
+      width: 328px;
+      height: 100px;
+    }
+    .banner-img img {
+      width: 100%;
+      max-height: 100%;
+    }
+    .form-group input{
+        width: 440px;
+    }
+    .more-group{
+        margin-left: 20px;
+    }
+    .more-group .priority-select{
+      width: 210px;
+    }
+    @media screen and (max-width: 1100px) {
+      .form-group {
+        margin-top: 15px;
+      }
+    }
+  </style>
 {% endblock %}
 
-{% block content-header%}
-轮播图
+{% block content-header %}
+  轮播图
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        {#                    pull-left相当于左浮动#}
-        <button class="btn btn-primary pull-left" id="add_banner">
-            <i class="fa fa-plus"></i>
-            <span>添加轮播图</span>
-        </button>
-        <ul class="tips pull-left btn_ul">
-            <li>支持JPG,GIF,PNG格式，最多可上传6张</li>
-            <li>比例4:1，宽度在800px以上，5M以内</li>
-        </ul>
-        <div class="banner_list_group">
-        </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <button class="btn btn-primary pull-left" id="banner-add-btn"><i class="fa fa-plus"></i> 添加轮播图</button>
+      <ul class="pull-left tips" style="line-height: 18px;">
+        <li>支持 JPG/PNG 格式的图片 最多可上传6张</li>
+        <li>图片的宽度最好在800px以上，比例为4:1</li>
+      </ul>
     </div>
-</div>
+  </div>
+  <ul class="banner-list">
+    {% for one_banner in banners %}
+      <li class="box banner-item box-primary" data-banner-id="{{ one_banner.id }}">
+        <div class="box-header">
+          <span>当前优先级为：<span class="priority-number">{{ one_banner.priority }}</span></span>
+          <a href="javascript:void(0);" class="btn btn-danger btn-xs pull-right close-btn">
+            <i class="fa fa-close"></i>
+          </a>
+        </div>
+        <div class="box-body">
+          <div class="pull-left banner-img">
+            <input type="file" name="banner-image-select" style="display: none;">
+            <img src="{{ one_banner.image_url }}" class="img-thumbnail banner-image">
+          </div>
 
-{#banner-item、banner-image是自己定义的#}
-{#    添加data-banner-id，是为了方便以后修改时，可以知道时哪个#}
-<script id="Add_Banners" type="text/html">
-    {% verbatim %}
-        {{ if banner }}
-            <div class="box pull-left banner-item" data-banner-id="{{ banner.id }}">
-        {{ else }}
-            <div class="box pull-left banner-item">
-        {{ /if }}
-                <div class="box-header">
-                    {{ if banner }}
-                        <span class="priority-span">优先级：{{ banner.priority }}</span>
-                    {{ else }}
-                         <span class="priority-span">优先级：0</span>
-                    {{ /if }}
-                    <button class="btn btn-default pull-right close_banner">
-                        <i class="fa fa-close pull-right"></i>
-                    </button>
-                </div>
-                <div class="box-body">
-                    <div class="img-group pull-left">
-                        <input type="file" class="add_image" style="display: none">
-                        {{ if banner }}
-                            <img src="{{ banner.image_url }}" alt="" class="banner-image">
-                        {{ else }}
-                            <img src="/static/images/banner.png" alt="" class="banner-image">
-                        {{ /if }}
-                    </div>
-                    <div class="more-group pull-left">
-                        <div class="form-group">
-                            {{ if banner }}
-                                <input type="number" class="form-control" name="priority" placeholder="请输入优先级" value="{{ banner.priority }}">
-                            {{ else }}
-                                <input type="number" class="form-control" name="priority" placeholder="请输入优先级">
-                            {{ /if }}
-                        </div>
-                        <div class="form-group">
-                            {{ if banner }}
-                                <input type="text" class="form-control" name="link_to" placeholder="请输入跳转链接" value="{{ banner.link_to }}">
-                            {{ else }}
-                                <input type="text" class="form-control" name="link_to" placeholder="请输入跳转链接">
-                            {{ /if }}
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer pull-right save-btn">
-                    <button class="btn btn-primary">
-                        保存
-                    </button>
-                </div>
+            <div class="pull-left more-group">
+              <div class="form-group priority-select">
+                  <select name="priority" id="priority" class="form-control">
+                    <option value="0">- - - 请选择优先级 - - -</option>
+                    {% for id, value in priority_dict.items %}
+                      {% if id == one_banner.priority %}
+                        <option value="{{ id }}" selected>{{ value }}</option>
+                      {% else %}
+                        <option value="{{ id }}">{{ value }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+              </div>
+              <div class="form-group">
+                <label for="link_to" style="display: none;"></label>
+                <input type="text" class="form-control" name="link_to" placeholder="请输入跳转链接" id="link_to" value="{{ one_banner.link_to|safe }}">
+              </div>
             </div>
-  {% endverbatim %}
-</script>
+        </div>
+        <div class="box-footer">
+          <button class="btn btn-primary pull-right update-btn" data-image-url="{{ one_banner.image_url }}" data-priority="{{ one_banner.priority }}" data-link_to="{{ one_banner.link_to }}">更新
+          </button>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'js/template-web.js' %}"></script>
-    <script src="{% static 'js/cms/product/banner.js' %}"></script>
+    <script src="{% static 'js/cms/product/banner_img_update_to_fastfdfs.js' %}"></script>
+  <script src="{% static 'js/cms/product/banner.js' %}"></script>
 {% endblock %}

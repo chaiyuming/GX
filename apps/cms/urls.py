@@ -24,5 +24,7 @@ urlpatterns = [
 
     path('words/',views.WordsView.as_view(),name='words'),
 
-    path('banner/',views.BannerView.as_view(),name='banner'),
+    path('banners/',views.BannerManageView.as_view(),name='banners_manage'),
+    path('add/banner/',views.AddBannerView.as_view(),name='add_banner'),
+    path('banner/<int:banner_id>/',views.BannerEditView.as_view(),name='edit_banner'),
 ]

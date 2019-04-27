@@ -1,6 +1,6 @@
 from django import forms
 
-from apps.product.models import Products,ProductCategory
+from apps.product.models import Products,ProductCategory,Banner
 from apps.news.models import News
 
 class AddProductForm(forms.ModelForm):
@@ -42,3 +42,6 @@ class PubNewsForm(forms.ModelForm):
                 'required': '文章内容不能为空',
             },
         }
+
+class BannerForm(forms.ModelForm):
+    pass
