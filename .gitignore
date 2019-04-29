@@ -3,7 +3,7 @@ static/images/
 static/sweetalert/
 static/font-awesome-4.7.0/
 settings.py
-pro_settings.py
+Gx/pro_settings.py
 utils/
 media/
 *.log

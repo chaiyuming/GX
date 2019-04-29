@@ -1,5 +1,4 @@
 {% extends 'base/front_base.html' %}
-{#{% load news_filters %}#}
 {% block title %}
   产品详情信息-杭州共携科技有限公司
 {% endblock %}
@@ -30,8 +29,7 @@
                   {% with top_category.sub_category.all as sub_categories %}
                     {% if sub_categories %}
                       {% for sub_category in sub_categories %}
-                        <p data-sub_type_id="{{ sub_category.id }}"><a
-                                href="{% url 'product:product_center' %}?top_tag_id={{ top_category.id }}&sub_tag_id={{ sub_category.id }}">{{ sub_category.name }}（{{ sub_category.products.count }}）</a>
+                        <p data-sub_type_id="{{ sub_category.id }}"><a href="{% url 'product:product_center' %}?top_tag_id={{ top_category.id }}&sub_tag_id={{ sub_category.id }}">{{ sub_category.name }}（{{ sub_category.products.count }}）</a>
                         </p>
                       {% endfor %}
                     {% endif %}
@@ -66,7 +64,7 @@
                 <p>{{ products.describe }}</p>
               </div>
               <div class="infos">
-                图片更新：{{ products.update_time|date:'Y/m/d' }}
+                更新时间：{{ products.update_time|date:'Y/m/d' }}
               </div>
               <ul>
                 <li>

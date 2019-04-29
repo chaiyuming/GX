@@ -110,11 +110,15 @@ class ProductDetailView(View):
         top_categories = models.ProductCategory.objects.only('id', 'name').filter(is_delete=False, parent_id=None)
         products = models.Products.objects.only('id', 'brand', 'thumbnail', 'describe','version','update_time').filter(is_delete=False,id=p_id).first()
         random_products = list(models.Products.objects.only('brand','thumbnail','version','describe','id').filter(is_delete=False))
+        if len(random_products) >=8:
+            random_products=random.sample(random_products,8)
+        else:
+            random_products=random_products
         context = {
             'banners': banners,
             'top_categories': top_categories,
             'products': products,
-            'random_products': random.sample(random_products,8)
+            'random_products': random_products
         }
         return render(request,'product/product_detail.html',context=context)
 

@@ -83,27 +83,7 @@
             </div>
         </div>
     </header>
-    {#轮播图#}
-{#    <div class="carousel-Box">#}
-{#        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">#}
-{#          <ol class="carousel-indicators">#}
-{#            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>#}
-{#          </ol>#}
-{#          <div class="carousel-inner">#}
-{#            <div class="carousel-item active">#}
-{#              <img src="/static/images/1920海报4.jpg" class="d-block w-100" alt="..." style="width: 100%">#}
-{#            </div>#}
-{#          </div>#}
-{#          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">#}
-{#            <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
-{#            <span class="sr-only">Previous</span>#}
-{#          </a>#}
-{#          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">#}
-{#            <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
-{#            <span class="sr-only">Next</span>#}
-{#          </a>#}
-{#        </div>#}
-{#    </div>#}
+
         <div class="carousel-Box">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -149,10 +129,11 @@
                     <div class="top_info">
                         <ul class="footer_links">
                             <li><a href="/">网站首页</a></li>
-                            <li>|<a href="#">关于我们</a></li>
-                            <li>|<a href="#">产品中心</a></li>
-                            <li>|<a href="#">新闻资讯</a></li>
-                            <li>|<a href="#">联系我们</a></li>
+                            <li>|<a href="{% url 'culture:introduce' %}">关于我们</a></li>
+                            <li>|<a href="{% url 'product:product_center' %}">产品中心</a></li>
+                            <li>|<a href="{% url 'news:news' %}">新闻资讯</a></li>
+                            <li>|<a href="{% url 'product:contact' %}">联系我们</a></li>
+                            <li>|<a href="{% url 'word:client_words' %}">客户留言</a></li>
                         </ul>
                     </div>
                     <div class="bottom_info">

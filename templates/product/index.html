@@ -34,8 +34,6 @@
   <div class="main-container product_category">
     <div class="left_side">
       <div class="product_left">
-        {#            <i class="iconfont icon-weibiaoti-" style="font-size: 20px;color: white;font-weight: bold;margin-right: 5px"></i>#}
-{#        <div class="title"><span> <img src="/static/images/ioc.png" alt=""> 产品分类</span></div>#}
         <div class="title"><span> 产品分类</span></div>
         <div class="left_nav">
           <ul class="category_list">
@@ -62,8 +60,8 @@
                     产品展示
                 </span>
         <span class="product-right-box">
-{#                    <a href="{% url 'product-index:products_list' %}" class="pull-right">更多&gt;&gt;</a>#}
-                    <a href="#" class="pull-right">更多&gt;&gt;</a>
+                    <a href="{% url 'product:product_center' %}" class="pull-right">更多&gt;&gt;</a>
+{#                    <a href="#" class="pull-right">更多&gt;&gt;</a>#}
                 </span>
       </div>
       <div class="pro-list-show">
@@ -71,7 +69,6 @@
           {% for product in products %}
             <div class="albumblock">
               <div class="inner">
-                {#                            <a href="{% url 'product-index:product_detail' p_id=product.pk %}" title="{{ product.describe }}" target="_blank">#}
                 <a href="{% url 'product:product_detail' product.id %}" title="{{ product.describe }}" target="_blank">
                   <img class="thumbnail-group" src="{{ product.thumbnail }}" alt="">
                   <div class="course-bottom-group">
