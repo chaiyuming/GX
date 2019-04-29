@@ -378,8 +378,8 @@ class ProductEditView(ProductManageView,View):
         if not product:
             return to_json_data(errno=Code.PARAMERR,errmsg='需要删除的产品不存在！')
         else:
-            product.is_delete=True
-            product.save(update_fields=['is_delete'])
+            product.delete()
+            product.save()
             return to_json_data(errmsg='产品删除成功！')
     def put(self,request,product_id):
 

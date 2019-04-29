@@ -3,7 +3,19 @@ static/images/
 static/sweetalert/
 static/font-awesome-4.7.0/
 settings.py
+pro_settings.py
 utils/
 media/
+*.log
 .idea
 *.pyc
+
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

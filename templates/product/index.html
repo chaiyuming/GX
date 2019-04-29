@@ -72,7 +72,7 @@
             <div class="albumblock">
               <div class="inner">
                 {#                            <a href="{% url 'product-index:product_detail' p_id=product.pk %}" title="{{ product.describe }}" target="_blank">#}
-                <a href="#" title="{{ product.describe }}" target="_blank">
+                <a href="{% url 'product:product_detail' product.id %}" title="{{ product.describe }}" target="_blank">
                   <img class="thumbnail-group" src="{{ product.thumbnail }}" alt="">
                   <div class="course-bottom-group">
                     {{ product.brand }}
