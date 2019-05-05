@@ -4,6 +4,8 @@ import random
 from django.shortcuts import render
 from django.views import View
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 
 from . import models,constants
@@ -11,6 +13,8 @@ from utils.paginator_script import get_paginator_data
 # Create your views here.
 logger=logging.getLogger('inter_log')
 
+
+@method_decorator(cache_page(timeout=120, cache='page_cache'), name='dispatch')
 class IndexView(View):
     def get(self,request):
         banners=models.Banner.objects.only('id','image_url').filter(is_delete=False)
@@ -43,6 +47,7 @@ class IndexView(View):
         context.update(data_pagination)
         return render(request, 'product/index.html',context=context)
 
+@method_decorator(cache_page(timeout=120, cache='page_cache'), name='dispatch')
 class ProductsView(View):
     '''
     the index of product view
@@ -122,7 +127,7 @@ class ProductDetailView(View):
         }
         return render(request,'product/product_detail.html',context=context)
 
-
+@method_decorator(cache_page(timeout=120, cache='page_cache'), name='dispatch')
 class ContactView(View):
     def get(self,request):
         top_categories = models.ProductCategory.objects.only('id', 'name').filter(is_delete=False, parent_id=None)

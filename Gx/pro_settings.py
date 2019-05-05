@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,8 +25,7 @@ SECRET_KEY = '4+(ys*#u21-#_h54i!po#wm5g5=k-87-jp)_p-8c)iir8=j^s1'
 # debug改为False后就不会提供静态文件服务了，那么就需要通过nginx
 DEBUG = False
 
-ALLOWED_HOSTS = ['47.99.114.195',"www.gongxietech.com"]
-
+ALLOWED_HOSTS = ['47.99.114.195', "www.gongxietech.com"]
 
 # Application definition
 
@@ -72,13 +70,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'builtins':['django.templatetags.static'],
+            'builtins': ['django.templatetags.static'],
         },
     },
 ]
-AUTH_USER_MODEL='users.Users'
+AUTH_USER_MODEL = 'users.Users'
 WSGI_APPLICATION = 'Gx.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -86,18 +83,16 @@ WSGI_APPLICATION = 'Gx.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'company_data',
-        'USER':'gongxie',
-        'PASSWORD':'cym19911206',
-        'HOST':'47.99.114.195',
-        'PORT':'3306',
+        'NAME': 'company_data',
+        'USER': 'gongxie',
+        'PASSWORD': 'cym19911206',
+        'HOST': '47.99.114.195',
+        'PORT': '3306',
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -113,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -127,17 +121,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR,'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 # 配置media路径，在django中一般会将文件存放在media中，media可以在任何文件夹中，不一定在项目文件中。
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 在settings.py文件中指定redis配置
 CACHES = {
@@ -149,19 +142,28 @@ CACHES = {
         }
     },
     "item_ImgCaptcha": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379/1",
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            }
-        },
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
     "item_session": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379/2",
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            }
-        },
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+    # 页面缓存技术
+    "page_cache": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/5",
+        'TIMEOUT': 120,  # 过期时间设为120秒
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
 }
 
 # 在setting.py文件中加入如下配置：
@@ -221,7 +223,6 @@ ELASTICSEARCH_DSL = {
     },
 }
 
-
 # Haystack
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -236,23 +237,20 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # FASTDFS域名信息
 FASTDFS_SERVER_DOMAIN = "http://47.99.114.195:8888/"
 
-
-
 # 七牛云相关配置
-QINIU_ACCESS_KEY="5ixiJHJFv_euNuH47dr2SCN4wWcGOyJA7RDVKEHt"
-QINIU_SECRET_KEY="FMfUTWJwPkyGkJkQMb2fA_Dy1E2OASYETUs6TThC"
-QINIU_BUCKET_NAME='mblog'
-QINIU_DOMAIN='http://www.gongxietech.com/'
-
+QINIU_ACCESS_KEY = "5ixiJHJFv_euNuH47dr2SCN4wWcGOyJA7RDVKEHt"
+QINIU_SECRET_KEY = "FMfUTWJwPkyGkJkQMb2fA_Dy1E2OASYETUs6TThC"
+QINIU_BUCKET_NAME = 'mblog'
+QINIU_DOMAIN = 'http://www.gongxietech.com/'
 
 # 1、 配置服务器的ueditor
 UEDITOR_UPLOAD_TO_SERVER = True
-UEDITOR_UPLOAD_PATH =MEDIA_ROOT
-UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR,'static','ueditor','config.json')
+UEDITOR_UPLOAD_PATH = MEDIA_ROOT
+UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR, 'static', 'ueditor', 'config.json')
 
 # 2、上传到qiniu的ueditor配置
-UEDITOR_QINIU_ACCESS_KEY=QINIU_ACCESS_KEY
-UEDITOR_QINIU_SECRET_KEY=QINIU_SECRET_KEY
-UEDITOR_QINIU_BUCKET_NAME=QINIU_BUCKET_NAME
-UEDITOR_QINIU_DOMAIN=QINIU_DOMAIN
-UEDITOR_UPLOAD_TO_QINIU=True
+UEDITOR_QINIU_ACCESS_KEY = QINIU_ACCESS_KEY
+UEDITOR_QINIU_SECRET_KEY = QINIU_SECRET_KEY
+UEDITOR_QINIU_BUCKET_NAME = QINIU_BUCKET_NAME
+UEDITOR_QINIU_DOMAIN = QINIU_DOMAIN
+UEDITOR_UPLOAD_TO_QINIU = True
