@@ -3,6 +3,8 @@ import logging
 
 from django.shortcuts import render,redirect,reverse
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from . import models,forms
 from apps.product.models import Banner,ProductCategory
@@ -13,6 +15,7 @@ from utils.res_code import Code,error_map
 # Create your views here.
 logger=logging.getLogger('inter_log')
 
+@method_decorator(cache_page(timeout=120, cache='page_cache'), name='dispatch')
 class ClientWordsView(View):
     def get(self,request):
         banners = Banner.objects.only('id', 'image_url').filter(is_delete=False).order_by('priority', '-update_time',

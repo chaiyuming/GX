@@ -11,6 +11,7 @@ from django.views.decorators.cache import cache_page
 from . import models,constants
 from utils.paginator_script import get_paginator_data
 # Create your views here.
+
 logger=logging.getLogger('inter_log')
 
 
@@ -106,6 +107,7 @@ class ProductsView(View):
         context.update(data_pagination)
         return render(request, 'product/products.html',context=context)
 
+@method_decorator(cache_page(timeout=120, cache='page_cache'), name='dispatch')
 class ProductDetailView(View):
     '''
     the product detail view
